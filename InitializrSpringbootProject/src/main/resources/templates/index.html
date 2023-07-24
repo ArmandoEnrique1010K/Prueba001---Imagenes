@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Galeria de Imagenes</h1>
+        
+        <!-- -->
+        <a th:href="@{/nuevo}">Insertar un nuevo registro</a>
+        <br>
+        <br>
+
+        <div>
+            <table border="1">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Ruta Imagen</th>
+                    <th>Imagen</th>
+                    <th>Estado</th>
+                    <th>Detalles</th>
+                    <th>Editar</th>
+                    <th>Cambiar estado<br> a false</th>
+                    <th>Eliminar<br>definitivamente</th>
+                </tr>
+                <tr th:each = "registro : ${galeria_imagenes}">
+                    <td th:text = "${registro.id}"></td>
+                    <td th:text = "${registro.nombre}"></td>
+                    <td th:text = "${registro.descripcion}"></td>
+                    <td th:text = "${registro.rutaImagen}"></td>
+                    <td>
+                        <img th:src="@{/assets/{filename}(filename=${registro.rutaImagen})}" width="250px">
+                    </td>
+                    <td th:text = "${registro.estado}"></td>
+                    <td>
+                        <a th:href="@{/{id}(id=${registro.id})}">Detalles</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/{id}/editar(id=${registro.id})}">Editar</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/{id}/cambioestadoafalse(id=${registro.id})}">Cambiar estado<br> a false</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/{id}/eliminardefinitivamente(id=${registro.id})}">Eliminar<br>definitivamente</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+CREATE DATABASE prueba001;
+USE prueba001;
+
+
+SELECT * FROM prueba001.tabla_imagenes;
+
+
+INSERT INTO tabla_imagenes (id_imagen, nombre, descripcion, estado, ruta_imagen) VALUES 
+(1, "Papel Tapiz Claro Windows XP", "Fondo de pantalla de Windows XP", 1, "Classic Shell.jpg"),
+(2, "Papel Tapiz Oscuro Windows XP", "Fondo de pantalla editado de Windows XP", 1, "Classic Shell_night.jpg");
+
+# DROP TABLE tabla_imagenes;

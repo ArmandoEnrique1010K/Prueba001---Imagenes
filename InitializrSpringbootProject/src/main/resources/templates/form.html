@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            form .mensajedeerror {
+                display: block;
+                color: red;
+            }
+            form .mensajehastasubirimagen{
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Insertar un nuevo registro</h1>
+        <div>
+            <form th:action="@{/nuevo}" th:object="${datos_imagen}" method="POST" id="formdata" 
+                  enctype="multipart/form-data">
+
+                <label for="txtnombre">Nombre: </label>
+                <input id="txtnombre" type="text" name="nombre" th:field="*{nombre}">
+                <!-- mensaje de error -->
+                <div id="ErrorNombre" class="mensajedeerror" th:if="${#fields.hasErrors('nombre')}" 
+                     th:errors="*{nombre}"></div>
+                <br> <br>
+
+                <label for="txtDescripcion">Descripcion: </label> <br>
+                <textarea id="txtDescripcion" name="descripcion" th:field="*{descripcion}" 
+                          rows="4" cols="40"></textarea>
+                <!-- mensaje de error -->
+                <div id="ErrorDescripcion" class="mensajedeerror" th:if="${#fields.hasErrors('descripcion')}" 
+                     th:errors="*{descripcion}"></div>
+                <br> <br>
+
+                <label>Imagen: </label>
+                <input id="imagenInput" 
+                       type="file" name="Imagen" th:field="*{imagen}">
+
+                <!-- PREVISUALIZAR LA IMAGEN -->
+                <br> <br>
+                <div>
+                    <span class="mensajehastasubirimagen" id="ErrorPrevisualizarImagen">Suba una imagen para previsualizarla antes de subirlo</span>
+                </div>
+                <img id="imagenPrevia" style="display: none;" width="250px">
+
+
+                <br> <br>
+
+                <button type="input" id="boton">Añadir</button>
+                <br> <br>
+                <a type="button" id="atras" th:href="@{/}">Atras</a>
+            </form>
+        </div>
+        <script>
+            const imagenInput = document.getElementById('imagenInput');
+            const imagenPrevia = document.getElementById('imagenPrevia');
+            const errorPrevisualizarImagen = document.getElementById('ErrorPrevisualizarImagen');
+
+            // CAMPOS DEL FORMULARIO NOMBRE Y DESCRIPCION
+            const mensajeErrorNombre = document.getElementById('ErrorNombre');
+            const nombreInput = document.getElementById('txtnombre');
+            const mensajeErrorDescripcion = document.getElementById('ErrorDescripcion');
+            const descripcionTextarea = document.getElementById('txtDescripcion');
+            
+            // Función para previsualizar la imagen
+            function previsualizarImagen(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        imagenPrevia.src = e.target.result;
+                        imagenPrevia.style.display = 'block';
+                        errorPrevisualizarImagen.style.display = 'none';
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    imagenPrevia.style.display = 'none';
+                    errorPrevisualizarImagen.style.display = 'block';
+                }
+            }
+            // Agregar el evento al campo de imagen
+            imagenInput.addEventListener('change', previsualizarImagen);
+
+            // MENSAJES DE ERRORES DE LOS CAMPOS NOMBRES Y DESCRIPCION
+            // Función para mostrar u ocultar el mensaje de error en función de la longitud del valor
+            function mostrarError(mensajeError, inputElement, minLength) {
+                if (inputElement.value.length < minLength) {
+                    mensajeError.style.display = 'block';
+                } else {
+                    mensajeError.style.display = 'none';
+                }
+            }
+            // Agregar evento de escucha para el campo de nombres
+            nombreInput.addEventListener('input', () => {
+                mostrarError(mensajeErrorNombre, nombreInput, 5);
+            });
+            // Agregar evento de escucha para el campo de descripcion
+            descripcionTextarea.addEventListener('input', () => {
+                mostrarError(mensajeErrorDescripcion, descripcionTextarea, 1);
+            });
+        </script>
+    </body>
+</html>
