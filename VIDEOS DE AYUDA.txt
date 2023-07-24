@@ -1,0 +1,2 @@
+Desarrollo de una aplicación web de trailers en Spring Boot usando Thymeleaf + MySQL y Bootstrap
+https://www.youtube.com/watch?v=fEFn9HNOE1M&ab_channel=LaTecnolog%C3%ADaAvanza
