@@ -8,7 +8,7 @@ public interface ContenedorImagenes {
 
     public void iniciarContenedorImagenes();
 
-    public String almacenarUnaImagen(MultipartFile imagen);
+    public String almacenarUnaImagen(MultipartFile imagen, String nombre);
 
     public Path cargarImagen(String nombreImagen);
 

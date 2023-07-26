@@ -57,8 +57,11 @@ public class GaleriaController {
             return "form.html";
         }
 
+        /*
         String rutaImagen = contenedorImagenesImpl.almacenarUnaImagen(objetogaleria.getImagen());
         objetogaleria.setRutaImagen(rutaImagen);
+        */
+        
         galeriaService.createRegistro(objetogaleria);
         return "redirect:/";
     }

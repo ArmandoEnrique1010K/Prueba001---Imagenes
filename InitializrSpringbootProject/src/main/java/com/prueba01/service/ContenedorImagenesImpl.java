@@ -35,19 +35,27 @@ public class ContenedorImagenesImpl implements ContenedorImagenes{
     }
 
     @Override
-    public String almacenarUnaImagen(MultipartFile imagen) {
-        String nombreImagen = imagen.getOriginalFilename();
+    public String almacenarUnaImagen(MultipartFile imagen, String nombre) {
+        // String nombreImagen = imagen.getOriginalFilename();
         if(imagen.isEmpty()){
             throw new AlmacenException("No se puede almacenar un archivo vacio");
         }
-                
+        
         try {
+            
+            // Generar el nuevo nombre usando el parámetro 'name'.
+            String nuevoNombre = nombre;
+            
+            // Copiar la imagen al servidor con el nuevo nombre
             InputStream inputStream = imagen.getInputStream();
-            Files.copy(inputStream, Paths.get(storageLocation).resolve(nombreImagen), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStream, Paths.get(storageLocation).resolve(nuevoNombre), StandardCopyOption.REPLACE_EXISTING);
+            
+            // Retornar el nombre de la imagen almacenada
+            return nuevoNombre;
+
         } catch (IOException exception){
-            throw new AlmacenException("Error al almacenar la imagen " + nombreImagen, exception);
+            throw new AlmacenException("Error al almacenar la imagen " , exception);
         }
-        return nombreImagen;
     }
 
     @Override
