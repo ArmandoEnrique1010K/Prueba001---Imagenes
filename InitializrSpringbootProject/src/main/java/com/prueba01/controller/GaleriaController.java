@@ -84,6 +84,13 @@ public class GaleriaController {
             return "formeditar.html";
         }
         
+        // Si hay un archivo que se subio y el archivo no es de tipo image, entonces no se va a guardar el registro.
+        if(!imagen.getContentType().startsWith("image/") && !imagen.isEmpty()){
+            modelo.addAttribute("parametros_imagen", objetogaleria);
+            return "formeditar.html";
+        }
+
+
         // Si no hay errores de validación y se seleccionó una nueva imagen, actualizamos el modelo
         if(!imagen.isEmpty()){
             objetogaleria.setImagen(imagen);

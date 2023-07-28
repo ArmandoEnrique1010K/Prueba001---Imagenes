@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Service
 public class GaleriaServiceImpl implements GaleriaService {
 
@@ -107,6 +108,13 @@ public GaleriaDto updateRegistro(GaleriaDto registro) {
         return null;
     }
 
+    /*
+    // Si el archivo subido no es de tipo image, entonces no se va a guardar el registro.
+    if(!registro.getImagen().getContentType().startsWith("image/")){
+        return null;
+    }
+*/
+    
     // Si la imagen no está vacía y es diferente a la imagen actual, eliminar la imagen anterior y almacenar la nueva
     if (registro.getImagen() != null && !registro.getImagen().isEmpty() && !registro.getImagen().equals(galeriaEntity.getImagen())) {
         contenedorImagenesImpl.eliminarImagen(galeriaEntity.getRutaImagen());
